@@ -336,6 +336,12 @@ impl EmailBuilder {
         self
     }
 
+    /// Only builds the body, this can be used to encrypt or sign
+    /// using S/MIME
+    pub fn build_body(mut self) -> Result<Vec<u8>, Error> {
+        Ok(self.message.build().as_string().into_bytes())
+    }
+
     /// Builds the Email
     pub fn build(mut self) -> Result<Email, Error> {
         // If there are multiple addresses in "From", the "Sender" is required.
